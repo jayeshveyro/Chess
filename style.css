@@ -70,10 +70,6 @@ h1 {
     background: #b58863;
 }
 
-/* =========================
-   PIECES
-========================= */
-
 .square span {
     position: relative;
 
@@ -110,18 +106,10 @@ h1 {
         0 4px 6px rgba(0, 0, 0, 0.7);
 }
 
-/* =========================
-   SELECTED
-========================= */
-
 .selected {
     box-shadow:
         inset 0 0 0 5px #ffd83d;
 }
-
-/* =========================
-   LEGAL MOVES
-========================= */
 
 .possible-move::before {
     content: "";
@@ -157,19 +145,11 @@ h1 {
     pointer-events: none;
 }
 
-/* =========================
-   CHECK
-========================= */
-
 .in-check {
     box-shadow:
         inset 0 0 0 6px #e53935,
         inset 0 0 30px rgba(229, 57, 53, 0.7);
 }
-
-/* =========================
-   STATUS
-========================= */
 
 .status {
     margin-top: 18px;
@@ -187,10 +167,6 @@ h1 {
 .game-over {
     color: #ffd740;
 }
-
-/* =========================
-   GAME LAYOUT
-========================= */
 
 .game-layout {
     display: flex;
@@ -220,10 +196,6 @@ h1 {
 }
 
 
-/* =========================
-   MOVE HISTORY
-========================= */
-
 .move-history {
     height: 420px;
 
@@ -245,11 +217,6 @@ h1 {
 
     border-bottom: 1px solid #292929;
 }
-
-
-/* =========================
-   RESTART BUTTON
-========================= */
 
 .restart-button {
     width: 100%;
@@ -284,11 +251,6 @@ h1 {
 .restart-button:active {
     transform: scale(0.97);
 }
-
-
-/* =========================
-   PROMOTION MODAL
-========================= */
 
 .promotion-modal {
     position: fixed;
@@ -359,11 +321,6 @@ h1 {
 
     transform: translateY(-3px);
 }
-
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 850px) {
 
