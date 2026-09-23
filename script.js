@@ -54,11 +54,6 @@ let enPassantTarget;
 
 let castlingRights;
 
-
-// =====================================================
-// RESET
-// =====================================================
-
 function resetGame() {
 
     boardState = copyBoard(initialBoard);
@@ -90,11 +85,6 @@ function resetGame() {
 }
 
 restartButton.addEventListener("click", resetGame);
-
-
-// =====================================================
-// SOUND
-// =====================================================
 
 let audioContext = null;
 
@@ -189,10 +179,6 @@ function playCheckmateSound() {
 }
 
 
-// =====================================================
-// DRAW BOARD
-// =====================================================
-
 function createBoard() {
 
     board.innerHTML = "";
@@ -243,11 +229,6 @@ function createBoard() {
     highlightMoves();
     highlightCheck();
 }
-
-
-// =====================================================
-// CLICK HANDLER
-// =====================================================
 
 function handleSquareClick(row, col) {
 
@@ -302,11 +283,6 @@ function handleSquareClick(row, col) {
     }
 }
 
-
-// =====================================================
-// SELECT PIECE
-// =====================================================
-
 function selectPiece(row, col) {
 
     selected = {
@@ -321,11 +297,6 @@ function selectPiece(row, col) {
     status.textContent =
         `${capitalize(currentTurn)} selected`;
 }
-
-
-// =====================================================
-// MOVE PIECE
-// =====================================================
 
 function movePiece(
     fromRow,
@@ -354,11 +325,6 @@ function movePiece(
         enPassantTarget.row === toRow &&
         enPassantTarget.col === toCol;
 
-
-    // ---------------------------------------------
-    // EN PASSANT
-    // ---------------------------------------------
-
     if (wasEnPassant) {
 
         const capturedPawnRow =
@@ -370,17 +336,8 @@ function movePiece(
     }
 
 
-    // ---------------------------------------------
-    // MOVE PIECE
-    // ---------------------------------------------
-
     boardState[toRow][toCol] = piece;
     boardState[fromRow][fromCol] = null;
-
-
-    // ---------------------------------------------
-    // CASTLING
-    // ---------------------------------------------
 
     if (
         movingType === "king" &&
@@ -400,11 +357,6 @@ function movePiece(
             null;
     }
 
-
-    // ---------------------------------------------
-    // UPDATE CASTLING RIGHTS
-    // ---------------------------------------------
-
     updateCastlingRights(
         piece,
         fromRow,
@@ -413,11 +365,6 @@ function movePiece(
         toRow,
         toCol
     );
-
-
-    // ---------------------------------------------
-    // EN PASSANT TARGET
-    // ---------------------------------------------
 
     enPassantTarget = null;
 
@@ -431,11 +378,6 @@ function movePiece(
             col: fromCol
         };
     }
-
-
-    // ---------------------------------------------
-    // PROMOTION
-    // ---------------------------------------------
 
     if (
         movingType === "pawn" &&
@@ -465,11 +407,6 @@ function movePiece(
         toCol
     );
 }
-
-
-// =====================================================
-// FINISH MOVE
-// =====================================================
 
 function finishMove(
     piece,
@@ -576,11 +513,6 @@ function finishMove(
     }
 }
 
-
-// =====================================================
-// PROMOTION
-// =====================================================
-
 function showPromotion(
     row,
     col,
@@ -638,11 +570,6 @@ function showPromotion(
 
     promotionModal.classList.remove("hidden");
 }
-
-
-// =====================================================
-// CASTLING RIGHTS
-// =====================================================
 
 function updateCastlingRights(
     piece,
@@ -729,11 +656,6 @@ function updateCastlingRights(
     }
 }
 
-
-// =====================================================
-// LEGAL MOVES
-// =====================================================
-
 function getLegalMoves(row, col) {
 
     const piece = boardState[row][col];
@@ -775,11 +697,6 @@ function getLegalMoves(row, col) {
     return legal;
 }
 
-
-// =====================================================
-// ALL LEGAL MOVES
-// =====================================================
-
 function getAllLegalMoves(color) {
 
     const moves = [];
@@ -805,11 +722,6 @@ function getAllLegalMoves(color) {
 
     return moves;
 }
-
-
-// =====================================================
-// PIECE MOVEMENT
-// =====================================================
 
 function getPseudoLegalMoves(
     row,
@@ -888,10 +800,6 @@ function getPseudoLegalMoves(
     }
 }
 
-
-// =====================================================
-// PAWN
-// =====================================================
 
 function getPawnMoves(
     row,
@@ -976,11 +884,6 @@ function getPawnMoves(
     return moves;
 }
 
-
-// =====================================================
-// ROOK
-// =====================================================
-
 function getRookMoves(
     row,
     col,
@@ -1002,11 +905,6 @@ function getRookMoves(
     );
 }
 
-
-// =====================================================
-// BISHOP
-// =====================================================
-
 function getBishopMoves(
     row,
     col,
@@ -1027,11 +925,6 @@ function getBishopMoves(
         ]
     );
 }
-
-
-// =====================================================
-// KNIGHT
-// =====================================================
 
 function getKnightMoves(
     row,
@@ -1079,11 +972,6 @@ function getKnightMoves(
 
     return moves;
 }
-
-
-// =====================================================
-// KING
-// =====================================================
 
 function getKingMoves(
     row,
@@ -1145,11 +1033,6 @@ function getKingMoves(
     return moves;
 }
 
-
-// =====================================================
-// SLIDING MOVEMENT
-// =====================================================
-
 function getSlidingMoves(
     row,
     col,
@@ -1199,11 +1082,6 @@ function getSlidingMoves(
 
     return moves;
 }
-
-
-// =====================================================
-// CASTLING
-// =====================================================
 
 function canCastleKingSide(
     color,
@@ -1321,11 +1199,6 @@ function canCastleQueenSide(
     return true;
 }
 
-
-// =====================================================
-// CHECK DETECTION
-// =====================================================
-
 function isKingInCheck(
     color,
     state
@@ -1400,11 +1273,6 @@ function isKingInCheck(
     return false;
 }
 
-
-// =====================================================
-// ATTACKS
-// =====================================================
-
 function getAttackMoves(
     row,
     col,
@@ -1475,11 +1343,6 @@ function getAttackMoves(
         state
     );
 }
-
-
-// =====================================================
-// HIGHLIGHTING
-// =====================================================
 
 function highlightSelected() {
 
@@ -1554,11 +1417,6 @@ function highlightCheck() {
     }
 }
 
-
-// =====================================================
-// MOVE HISTORY
-// =====================================================
-
 function addMoveToHistory(
     piece,
     fromRow,
@@ -1618,11 +1476,6 @@ function addMoveToHistory(
     moveHistory.scrollTop =
         moveHistory.scrollHeight;
 }
-
-
-// =====================================================
-// HELPERS
-// =====================================================
 
 function getPieceSymbol(piece) {
 
@@ -1703,10 +1556,5 @@ function updateStatus() {
     status.textContent =
         `${capitalize(currentTurn)}'s turn`;
 }
-
-
-// =====================================================
-// START
-// =====================================================
 
 resetGame();
