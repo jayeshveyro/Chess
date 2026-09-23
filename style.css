@@ -1,0 +1,382 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(circle at top, #252525, #0c0c0c 70%);
+
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.game {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 34px;
+    letter-spacing: 1px;
+}
+
+#board {
+    width: min(90vw, 640px);
+    height: min(90vw, 640px);
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+
+    border: 5px solid #181818;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        0 0 0 1px #444;
+}
+
+.square {
+    position: relative;
+
+    aspect-ratio: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+    user-select: none;
+
+    transition:
+        filter 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+.square:hover {
+    filter: brightness(1.08);
+}
+
+.light {
+    background: #f0d9b5;
+}
+
+.dark {
+    background: #b58863;
+}
+
+/* =========================
+   PIECES
+========================= */
+
+.square span {
+    position: relative;
+
+    font-family:
+        "Times New Roman",
+        "DejaVu Serif",
+        serif;
+
+    font-size: clamp(32px, 7vw, 62px);
+
+    line-height: 1;
+
+    z-index: 5;
+
+    pointer-events: none;
+}
+
+.white-piece {
+    color: #ffffff;
+
+    text-shadow:
+        -2px -2px 0 #222,
+         2px -2px 0 #222,
+        -2px  2px 0 #222,
+         2px  2px 0 #222,
+         0 4px 6px rgba(0, 0, 0, 0.55);
+}
+
+.black-piece {
+    color: #111111;
+
+    text-shadow:
+        0 2px 3px rgba(255, 255, 255, 0.3),
+        0 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* =========================
+   SELECTED
+========================= */
+
+.selected {
+    box-shadow:
+        inset 0 0 0 5px #ffd83d;
+}
+
+/* =========================
+   LEGAL MOVES
+========================= */
+
+.possible-move::before {
+    content: "";
+
+    position: absolute;
+
+    width: 20%;
+    height: 20%;
+
+    border-radius: 50%;
+
+    background: rgba(30, 30, 30, 0.45);
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+.possible-capture::before {
+    content: "";
+
+    position: absolute;
+
+    width: 72%;
+    height: 72%;
+
+    border-radius: 50%;
+
+    border: 5px solid rgba(180, 40, 40, 0.75);
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+/* =========================
+   CHECK
+========================= */
+
+.in-check {
+    box-shadow:
+        inset 0 0 0 6px #e53935,
+        inset 0 0 30px rgba(229, 57, 53, 0.7);
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+    margin-top: 18px;
+
+    min-height: 28px;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.check-status {
+    color: #ff5252;
+}
+
+.game-over {
+    color: #ffd740;
+}
+
+/* =========================
+   GAME LAYOUT
+========================= */
+
+.game-layout {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+.side-panel {
+    width: 220px;
+
+    background: #181818;
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    text-align: left;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.side-panel h2 {
+    margin-bottom: 12px;
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   MOVE HISTORY
+========================= */
+
+.move-history {
+    height: 420px;
+
+    overflow-y: auto;
+
+    background: #101010;
+
+    border-radius: 8px;
+
+    padding: 10px;
+
+    font-family: monospace;
+
+    font-size: 14px;
+}
+
+.move {
+    padding: 7px 5px;
+
+    border-bottom: 1px solid #292929;
+}
+
+
+/* =========================
+   RESTART BUTTON
+========================= */
+
+.restart-button {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #eee;
+
+    color: #111;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.1s,
+        background 0.2s;
+}
+
+.restart-button:hover {
+    background: white;
+}
+
+.restart-button:active {
+    transform: scale(0.97);
+}
+
+
+/* =========================
+   PROMOTION MODAL
+========================= */
+
+.promotion-modal {
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    z-index: 100;
+}
+
+.hidden {
+    display: none;
+}
+
+.promotion-box {
+    background: #202020;
+
+    padding: 25px;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.promotion-box h2 {
+    margin-bottom: 18px;
+}
+
+.promotion-options {
+    display: flex;
+
+    gap: 10px;
+}
+
+.promotion-option {
+    width: 70px;
+    height: 70px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #333;
+
+    color: white;
+
+    font-size: 48px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s,
+        background 0.15s;
+}
+
+.promotion-option:hover {
+    background: #444;
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 850px) {
+
+    .game-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .side-panel {
+        width: min(90vw, 640px);
+    }
+
+    .move-history {
+        height: 150px;
+    }
+}

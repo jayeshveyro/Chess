@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Chess</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+    <div class="game">
+
+        <h1>♟ Chess</h1>
+
+        <div class="game-layout">
+
+            <div>
+
+                <div id="board"></div>
+
+                <div
+                    class="status"
+                    id="status"
+                >
+                    White's turn
+                </div>
+
+            </div>
+
+
+            <div class="side-panel">
+
+                <h2>Moves</h2>
+
+                <div
+                    id="move-history"
+                    class="move-history"
+                ></div>
+
+                <button
+                    id="restart"
+                    class="restart-button"
+                >
+                    Restart Game
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Promotion popup -->
+
+    <div
+        id="promotion-modal"
+        class="promotion-modal hidden"
+    >
+
+        <div class="promotion-box">
+
+            <h2>Choose Promotion</h2>
+
+            <div
+                id="promotion-options"
+                class="promotion-options"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
